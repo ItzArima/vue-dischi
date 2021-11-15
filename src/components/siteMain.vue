@@ -1,5 +1,5 @@
 <template>
-  <div class="disks-container" >
+  <div class="disks" >
       <dischi />
   </div>
 </template>

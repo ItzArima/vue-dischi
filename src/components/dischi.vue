@@ -1,7 +1,12 @@
 <template>
-    <div class="element">
-        <div class="disc-container" v-for="element in elements" :key="element.name">
+    <div class="disks-container">
+        <div class="disk-container" v-for="element in elements" :key="element.name">
             <img :src="element.poster" alt="">
+            <h2>{{element.title}}</h2>
+            <div class="element-info">
+                <p>{{element.author}}</p>
+                <p>{{element.year}}</p>
+            </div>
         </div>
     </div>    
 </template>
