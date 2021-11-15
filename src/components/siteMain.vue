@@ -1,6 +1,6 @@
 <template>
   <div class="disks-container" >
-      <dischi  v-for="disco in dischi" :key="disco.author"/>
+      <dischi />
   </div>
 </template>
 
