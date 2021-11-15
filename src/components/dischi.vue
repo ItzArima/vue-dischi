@@ -1,11 +1,18 @@
 <template>
     <div class="disks-container">
-        <div class="disk-container" v-for="element in elements" :key="element.name">
-            <img :src="element.poster" alt="">
-            <h2>{{element.title}}</h2>
-            <div class="element-info">
-                <p>{{element.author}}</p>
-                <p>{{element.year}}</p>
+        <div class="elements" v-if="loading != true">
+            <div class="disk-container" v-for="element in elements" :key="element.name">
+                <img :src="element.poster" alt="">
+                <h2>{{element.title}}</h2>
+                <div class="element-info">
+                    <p>{{element.author}}</p>
+                    <p>{{element.year}}</p>
+                </div>
+            </div>
+        </div>    
+        <div v-else class="loading" >
+            <div class="loading-container">
+                <img src="../assets/img/loading.gif" alt="">
             </div>
         </div>
     </div>    
@@ -20,6 +27,7 @@ export default {
     data(){
         return{
             elements : [],
+            loading: true,
         }
     },
     mounted(){
@@ -28,6 +36,7 @@ export default {
             .then(r => {
                 console.log(r.data)
                 this.elements = r.data.response;
+                this.loading = false 
             })
             .catch(e =>{
                 console.log(e);
