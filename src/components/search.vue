@@ -9,7 +9,6 @@
             <option value="Metal">Metal</option>
         </select>
         <button @click="$emit('search',selection)">Search</button>
-        <button @click="$emit('reset')">Reset</button>
     </div>
 </template>
 

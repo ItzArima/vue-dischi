@@ -1,6 +1,6 @@
 <template>
     <div class="disks-container">
-        <search @search = "gender_Filter" @reset="reset"/>
+        <search @search = "gender_Filter"/>
         <div class="elements" v-if="this.loading != true">
             <div class="disk-container" v-for="element in elements" :key="element.name">
                 <img :src="element.poster" alt="">
@@ -34,6 +34,7 @@ export default {
         return{
             elements : [],
             loading: true,
+            api_elements : []
         }
     },
     methods :{
@@ -44,6 +45,7 @@ export default {
                 this.loading = true
                 console.log(r.data)
                 this.elements = r.data.response;
+                this.api_elements = this.elements
                 this.loading = false     
             })
             .catch(e =>{
@@ -51,8 +53,9 @@ export default {
             });
         },
         gender_Filter(selection){
+            this.reset()
             if(selection == "All"){
-                this.launch();
+                this.elements  =this.api_elements
             }
             else{
                 let filtered = this.elements.filter(element => element.genre == selection)
@@ -64,7 +67,7 @@ export default {
         },
         reset(){
             console.log("reset");
-            this.launch()
+            this.elements  =this.api_elements
         }
     },
     computed:{
