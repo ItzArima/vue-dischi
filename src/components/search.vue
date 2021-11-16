@@ -1,14 +1,13 @@
 <template>
     <div class="filter-container">
         <label for="selection">Choose a gender</label>
-        <select name="selection" v-model="selection">
+        <select name="selection" v-model="selection" @change="$emit('search',selection)">
             <option value="All">All</option>
             <option value="Rock">Rock</option>
             <option value="Pop">Pop</option>
             <option value="Jazz">Jazz</option>
             <option value="Metal">Metal</option>
         </select>
-        <button @click="$emit('search',selection)">Search</button>
     </div>
 </template>
 

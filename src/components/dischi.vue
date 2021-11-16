@@ -2,7 +2,7 @@
     <div class="disks-container">
         <search @search = "gender_Filter"/>
         <div class="elements" v-if="this.loading != true">
-            <div class="disk-container" v-for="element in elements" :key="element.name">
+            <div class="disk-container" v-for="element in filter" :key="element.name">
                 <img :src="element.poster" alt="">
                 <h2>{{element.title}}</h2>
                 <div class="element-info">
@@ -34,7 +34,9 @@ export default {
         return{
             elements : [],
             loading: true,
-            api_elements : []
+            api_elements : [],
+            select : "All",
+            filtered :[]
         }
     },
     methods :{
@@ -53,17 +55,8 @@ export default {
             });
         },
         gender_Filter(selection){
-            this.reset()
-            if(selection == "All"){
-                this.elements  =this.api_elements
-            }
-            else{
-                let filtered = this.elements.filter(element => element.genre == selection)
-                console.log(filtered);
-                this.elements = filtered
-                
-            }
-            console.log("ritornato"); 
+            this.select = selection
+            console.log(selection);
         },
         reset(){
             console.log("reset");
@@ -71,7 +64,17 @@ export default {
         }
     },
     computed:{
-        
+        filter(){
+            if(this.select != "All"){
+                const filter = this.elements.filter(element => {
+                    return element.genre.includes(this.select)
+                })
+                return filter   
+            }else{
+                return this.api_elements
+            }   
+        }    
+
     },
 
     mounted(){
@@ -86,3 +89,17 @@ export default {
 <style>
 
 </style>
+
+/* gender_Filter(selection){
+            if(selection == "All"){
+                this.filtered  =this.api_elements
+                return this.filtered
+                
+            }
+            else{
+                let filtered = this.elements.filter(element => element.genre == selection)
+                console.log(filtered);
+                this.filtered = filtered
+                return this.filtered            
+            }
+        }, */
