@@ -1,6 +1,6 @@
 <template>
     <div class="disks-container">
-        <search @search = "gender_Filter"/>
+        <search @search = "gender_Filter"  @searchArtist = "searchArtist"/>
         <div class="elements" v-if="this.loading != true">
             <div class="disk-container" v-for="element in filter" :key="element.name">
                 <img :src="element.poster" alt="">
@@ -35,8 +35,8 @@ export default {
             elements : [],
             loading: true,
             api_elements : [],
-            select : "All",
-            filtered :[]
+            select : "",
+            artist : ""
         }
     },
     methods :{
@@ -58,22 +58,22 @@ export default {
             this.select = selection
             console.log(selection);
         },
-        reset(){
-            console.log("reset");
-            this.elements  =this.api_elements
+        searchArtist(artist){
+            this.artist = artist
+            console.log(artist);
         }
     },
     computed:{
         filter(){
-            if(this.select != "All"){
-                const filter = this.elements.filter(element => {
-                    return element.genre.includes(this.select)
+            if(this.select != "" || this.artist != ""){             
+                const fullFilter = this.elements.filter((element) => {
+                    return (element.genre.includes(this.select) && element.author.includes(this.artist))
                 })
-                return filter   
+                return fullFilter  
             }else{
                 return this.api_elements
             }   
-        }    
+        },
 
     },
 
